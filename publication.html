@@ -3,39 +3,69 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Natt Korat</title>
+
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous" />
+      rel="stylesheet" />
+
+    <style>
+      body {
+        line-height: 1.7;
+      }
+
+      .profile-img {
+        border-radius: 10px;
+      }
+
+      .section-title {
+        margin-top: 50px;
+        margin-bottom: 15px;
+      }
+
+      .card {
+        margin-bottom: 20px;
+      }
+
+      .footer {
+        margin-top: 60px;
+        padding: 25px;
+        text-align: center;
+        background: #f8f9fa;
+      }
+
+      .hero {
+        margin-top: 40px;
+      }
+    </style>
   </head>
+
   <body>
+    <!-- Navbar -->
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-      <div class="container-fluid">
+      <div class="container">
         <a class="navbar-brand" href="./index.html">Natt Korat</a>
+
         <button
           class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation">
+          data-bs-target="#navbarNav">
           <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse">
-          <ul class="navbar-nav">
+          <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="./biography.html"
-                >Biography</a
-              >
+              <a class="nav-link" href="./biography.html">Biography</a>
             </li>
+
             <li class="nav-item">
-              <a class="nav-link active" href="./publication.html"
-                >Publication</a
-              >
+              <a class="nav-link" href="./publication.html">Publications</a>
             </li>
+
             <li class="nav-item">
               <a class="nav-link" href="./contact.html">Contact</a>
             </li>
@@ -43,26 +73,142 @@
         </div>
       </div>
     </nav>
-    <section class="container mt-5 justify-content-center">
-      <div class="row">
-        <div class="">
-          <h2>Publications</h2>
-          <hr />
-          <ul>
-            <li>
-                <strong>Korat, N.</strong>, Waranrach, V., & Kak, S. (2025). Toward Multilingual Epidemic Event Extraction for Low-Resource Languages. 2025 UEC Seminar Poster Session.
-                <a href="http://www.uarc.uec.ac.jp/2025UEC_Seminar/poster-detail.html">http://www.uarc.uec.ac.jp/2025UEC_Seminar/poster-detail.html</a>
-            </li>
-            <li>
-                <strong>Korat, N.</strong>, Heang, S., & Lay, V. (2025). Khmer News Classification in Low-Resource Settings: A comparative Analysis of Embedding Method. Journal on Information Technologies & Communications, 4.
-                <a href=" https://doi.org/10.32913/mic-ict-research-vn.v2025.n1.1377"> https://doi.org/10.32913/mic-ict-research-vn.v2025.n1.1377</a>
-            </li>
-            <li>
-                Kong, P., <strong>Korat, N.</strong>, & Veng, P. (2024). Robust and Efficient Recognition of Khmer License Plates Using YOLOv5 and Parseq OCR. <a href="https://cv4dc.github.io/2024/">CV4DC Workshop</a>, Asian Conference on Computer Vision (ACCV)
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
+
+    <div class="container mt-5">
+      <h2>Publications</h2>
+      <hr />
+
+      <!-- Journal Articles -->
+
+      <h4 class="section-title">Journal Articles</h4>
+
+      <ul>
+        <li>
+          <span class="pub-authors">
+            <strong>Korat, N.</strong>, Heang, S., & Lay, V.
+          </span>
+
+          (2025).
+
+          <span class="pub-title">
+            Khmer News Classification in Low-Resource Settings: A Comparative
+            Analysis of Embedding Methods.
+          </span>
+
+          <br />
+
+          <span class="pub-venue">
+            Journal on Information Technologies & Communications.
+          </span>
+
+          <br />
+
+          <a href="https://doi.org/10.32913/mic-ict-research-vn.v2025.n1.1377">
+            DOI
+          </a>
+        </li>
+      </ul>
+
+      <!-- Conference Papers -->
+
+      <h4 class="section-title">Conference Papers</h4>
+
+      <ul>
+        <li>
+          <span class="pub-authors">
+            Chiep, C., <strong>Korat, N.</strong>, Lay, V., & Ly, R.
+          </span>
+
+          (2025).
+
+          <span class="pub-title">
+            Building a Khmer NER Benchmark from Health News Data Towards Event
+            Extraction.
+          </span>
+
+          <br />
+
+          <span class="pub-venue">
+            ASEAN Conference on Emerging Technology (ACET 2025).
+          </span>
+        </li>
+
+        <li>
+          <span class="pub-authors">
+            <strong>Korat, N.</strong>, Kak, S., Lay, V., Uraiwan, B., &
+            Waranrach, V.
+          </span>
+
+          (2025).
+
+          <span class="pub-title">
+            Epidemic Event Extraction from News Media Using Large Language
+            Models.
+          </span>
+
+          <br />
+
+          <span class="pub-venue">
+            International Conference on Digital Economy and Fintech Innovation
+            (DEFI 2025).
+          </span>
+        </li>
+      </ul>
+
+      <!-- Posters -->
+
+      <h4 class="section-title">Posters & Workshops</h4>
+
+      <ul>
+        <li>
+          <span class="pub-authors">
+            Kong, P., <strong>Korat, N.</strong>, & Veng, P.
+          </span>
+
+          (2024).
+
+          <span class="pub-title">
+            Robust and Efficient Recognition of Khmer License Plates Using
+            YOLOv5 and Parseq OCR.
+          </span>
+
+          <br />
+
+          <span class="pub-venue">
+            CV4DC Workshop, Asian Conference on Computer Vision (ACCV).
+          </span>
+
+          <br />
+
+          <a href="https://cv4dc.github.io/2024/">Workshop Page</a>
+        </li>
+
+        <li>
+          <span class="pub-authors">
+            <strong>Korat, N.</strong>, Waranrach, V., & Kak, S.
+          </span>
+
+          (2025).
+
+          <span class="pub-title">
+            Toward Multilingual Epidemic Event Extraction for Low-Resource
+            Languages.
+          </span>
+
+          <br />
+
+          <span class="pub-venue">
+            UEC International Seminar Poster Session.
+          </span>
+
+          <br />
+
+          <a
+            href="http://www.uarc.uec.ac.jp/2025UEC_Seminar/poster-detail.html">
+            Poster Link
+          </a>
+        </li>
+      </ul>
+    </div>
   </body>
 </html>

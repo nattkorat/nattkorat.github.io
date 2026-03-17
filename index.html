@@ -3,37 +3,69 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Natt Korat</title>
+
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous" />
+      rel="stylesheet" />
+
+    <style>
+      body {
+        line-height: 1.7;
+      }
+
+      .profile-img {
+        border-radius: 10px;
+      }
+
+      .section-title {
+        margin-top: 50px;
+        margin-bottom: 15px;
+      }
+
+      .card {
+        margin-bottom: 20px;
+      }
+
+      .footer {
+        margin-top: 60px;
+        padding: 25px;
+        text-align: center;
+        background: #f8f9fa;
+      }
+
+      .hero {
+        margin-top: 40px;
+      }
+    </style>
   </head>
+
   <body>
+    <!-- Navbar -->
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="./index.html">Natt Korat</a>
+      <div class="container">
+        <a class="navbar-brand" href="#">Natt Korat</a>
+
         <button
           class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation">
+          data-bs-target="#navbarNav">
           <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse">
-          <ul class="navbar-nav">
+          <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="./biography.html"
-                >Biography</a
-              >
+              <a class="nav-link" href="./biography.html">Biography</a>
             </li>
+
             <li class="nav-item">
-              <a class="nav-link" href="./publication.html">Publication</a>
+              <a class="nav-link" href="./publication.html">Publications</a>
             </li>
+
             <li class="nav-item">
               <a class="nav-link" href="./contact.html">Contact</a>
             </li>
@@ -41,34 +73,156 @@
         </div>
       </div>
     </nav>
-    <section class="container mt-5">
+
+    <div class="container hero">
       <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3">
           <img
             src="./images/photo_2025-06-30 09.33.26.jpeg"
-            alt="Natt Korat"
-            class="img-fluid" />
+            class="img-fluid profile-img" />
         </div>
-        <div class="col-md-10">
-          <h2>About Me</h2>
-          <hr>
+
+        <div class="col-md-9">
+          <h2>Natt KORAT</h2>
+
           <p>
-            Hi! I'm <strong>Natt KORAT</strong>. 
+            <strong>Lecturer-Researcher</strong><br />
+            Speech Technology Unit<br />
+            Cambodia Academy of Digital Technology (CADT)
           </p>
+
+          <p>Speech Technology • NLP • Low-Resource Languages • Khmer AI</p>
+
           <p>
-            I received my B.A. in Psychology from <a href="https://www.rupp.edu.kh/">Royal University
-            of Phnom Penh</a> in 2022 and my B.S. in Computer Science from <a href="https://www.aga-institute.edu.kh/">AGA
-            Institute</a> in 2023.
+            I am a Lecturer-Researcher at the Cambodia Academy of Digital
+            Technology (CADT) working on speech and language technologies for
+            low-resource languages. My research focuses on developing AI systems
+            for
+            <strong
+              >Khmer speech recognition, speech data processing, and
+              multilingual natural language processing</strong
+            >.
           </p>
+
           <p>
-            I'm currently pursuing my M.S. in Computer
-            Science and serves as a Lecturer and Research Assistant at <a href="https://cadt.edu.kh/">the
-            Cambodia Academy of Digital Technology (CADT)</a>. My research
-            interests include computer vision, machine learning, natural
-            language processing, and large language models.
+            I completed my <strong>M.S. in Computer Science</strong> in January
+            2026. Previously I earned a B.S. in Computer Science from AGA
+            Institute (2023) and a B.A. in Psychology from the Royal University
+            of Phnom Penh (2022).
+          </p>
+
+          <p>
+            My previous work also includes
+            <strong
+              >multilingual event extraction and epidemic surveillance
+              systems</strong
+            >
+            that analyze news and social media to extract structured information
+            for public health monitoring.
+          </p>
+
+          <p>
+            <a href="https://github.com/nattkorat">GitHub</a> |
+            <a
+              href="https://scholar.google.com/citations?hl=en&user=bTgY-KEAAAAJ"
+              >Google Scholar</a
+            >
+            |
+            <a href="./biography.html">CV</a>
           </p>
         </div>
       </div>
-    </section>
+
+      <!-- Research Interests -->
+
+      <h4 class="section-title">Research Interests</h4>
+      <hr />
+
+      <ul>
+        <li>Speech Recognition</li>
+
+        <li>Speech Data Collection and Processing</li>
+
+        <li>Natural Language Processing (NLP)</li>
+
+        <li>Low-Resource Language Technologies</li>
+
+        <li>Information Extraction and Event Extraction</li>
+
+        <li>AI for Public Health and Epidemic Surveillance</li>
+      </ul>
+
+      <!-- Featured Projects -->
+
+      <h4 class="section-title">Featured Projects</h4>
+      <hr />
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Khmer Speech Technology</h5>
+
+              <p class="card-text">
+                Research on Khmer speech recognition systems, speech datasets,
+                and tools for low-resource speech processing.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Speech Dataset Pipeline</h5>
+
+              <p class="card-text">
+                Pipeline for collecting and processing speech data from online
+                sources such as broadcast media and YouTube.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Event Extraction System</h5>
+
+              <p class="card-text">
+                AI system that extracts epidemic-related events from
+                multilingual news and social media using transformer models.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education -->
+
+      <h4 class="section-title">Education</h4>
+      <hr />
+
+      <ul>
+        <li>
+          <strong>M.S. Computer Science</strong><br />
+          Completed January 2026
+        </li>
+
+        <li>
+          <strong>B.S. Computer Science</strong><br />
+          AGA Institute, 2023
+        </li>
+
+        <li>
+          <strong>B.A. Psychology</strong><br />
+          Royal University of Phnom Penh, 2022
+        </li>
+      </ul>
+
+      <!-- Footer -->
+
+      <div class="footer">© 2026 Natt Korat</div>
+    </div>
   </body>
 </html>
