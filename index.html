@@ -1,228 +1,1333 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Natt Korat — Speech Technology Researcher</title>
+  <meta name="description" content="Lecturer-Researcher at CADT specializing in Khmer ASR, speech technology, and multilingual NLP." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-    <title>Natt Korat</title>
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────── */
+    :root {
+      --bg:        #07111f;
+      --bg2:       #0b1929;
+      --surface:   #0f2035;
+      --surface2:  #162840;
+      --border:    #1e3450;
+      --accent:    #3b82f6;
+      --accent-lo: rgba(59,130,246,.12);
+      --amber:     #f59e0b;
+      --amber-lo:  rgba(245,158,11,.12);
+      --violet:    #a78bfa;
+      --violet-lo: rgba(167,139,250,.12);
+      --text:      #e2e8f0;
+      --text2:     #94a3b8;
+      --text3:     #475569;
+      --r:         12px;
+      --fd: 'Space Grotesk', sans-serif;
+      --fb: 'Inter', sans-serif;
+      --fm: 'JetBrains Mono', monospace;
+    }
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet" />
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--fb);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; }
 
-    <style>
-      body {
-        line-height: 1.7;
+    /* ─── LAYOUT HELPERS ─────────────────────────────────── */
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 1.75rem;
+    }
+    .divider {
+      max-width: 1080px;
+      margin: 0 auto;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ─── NAVBAR ─────────────────────────────────────────── */
+    #nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 900;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      padding: 0 1.75rem;
+      background: rgba(7,17,31,.75);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid transparent;
+      transition: border-color .3s;
+    }
+    #nav.scrolled { border-bottom-color: var(--border); }
+    .nav-inner {
+      max-width: 1080px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      font-family: var(--fd);
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: -.02em;
+      color: var(--text);
+    }
+    .brand em { color: var(--accent); font-style: normal; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text2);
+      font-size: .85rem;
+      font-weight: 500;
+      letter-spacing: .02em;
+      transition: color .2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--accent); }
+
+    .nav-cv {
+      padding: .38rem 1rem;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      color: var(--text) !important;
+      font-size: .8rem !important;
+      transition: border-color .2s, color .2s !important;
+    }
+    .nav-cv:hover { border-color: var(--accent) !important; color: var(--accent) !important; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all .3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ─── HERO ───────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      padding: 60px 1.75rem 0;
+      overflow: hidden;
+    }
+
+    /* animated waveform bg */
+    #waveform-bg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: .05;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .wave-bars {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      height: 400px;
+      width: 100%;
+      max-width: 1200px;
+    }
+    .wbar {
+      flex: 1;
+      border-radius: 3px;
+      background: var(--accent);
+      transform-origin: center;
+      animation: pulse linear infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scaleY(.08); }
+      50%       { transform: scaleY(1); }
+    }
+
+    /* subtle radial gradient */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 30% 60%, rgba(59,130,246,.07), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1080px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .hero-eyebrow {
+      font-family: var(--fm);
+      font-size: .72rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+    .hero-name {
+      font-family: var(--fd);
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 700;
+      letter-spacing: -.04em;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: .75rem;
+    }
+    .hero-role {
+      font-family: var(--fd);
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      font-weight: 400;
+      color: var(--text2);
+      margin-bottom: 1.5rem;
+      min-height: 1.8em;
+    }
+    #typed-text { }
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: var(--accent);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    .hero-desc {
+      max-width: 560px;
+      font-size: .975rem;
+      color: var(--text2);
+      line-height: 1.85;
+      margin-bottom: 2.5rem;
+    }
+    .hero-desc strong { color: var(--text); }
+
+    .hero-cta { display: flex; gap: .875rem; flex-wrap: wrap; }
+
+    /* ─── BUTTONS ────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .65rem 1.4rem;
+      border-radius: 8px;
+      font-family: var(--fb);
+      font-size: .875rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: all .2s;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #2563eb; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(59,130,246,.3); }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* ─── SECTIONS ───────────────────────────────────────── */
+    .section {
+      padding: 5rem 1.75rem;
+    }
+    .section-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .s-eyebrow {
+      font-family: var(--fm);
+      font-size: .72rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .4rem;
+    }
+    .s-title {
+      font-family: var(--fd);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 600;
+      letter-spacing: -.02em;
+      color: var(--text);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ─── ABOUT ──────────────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    .profile-wrap { position: relative; }
+    .profile-photo {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      filter: grayscale(15%);
+      transition: filter .4s, transform .4s;
+      display: block;
+    }
+    .profile-photo:hover { filter: grayscale(0%); transform: scale(1.02); }
+    .profile-placeholder {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+
+    .about-name {
+      font-family: var(--fd);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      margin-bottom: .2rem;
+    }
+    .about-pos {
+      font-size: .85rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    .about-bio {
+      font-size: .94rem;
+      color: var(--text2);
+      line-height: 1.85;
+      margin-bottom: .875rem;
+    }
+    .about-bio strong { color: var(--text); }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+      margin: 1.5rem 0;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .4rem .95rem;
+      border-radius: 100px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text2);
+      font-size: .78rem;
+      font-weight: 500;
+      transition: all .2s;
+    }
+    .pill:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-lo); }
+
+    .stats-bar {
+      display: flex;
+      gap: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      margin-top: 1.5rem;
+    }
+    .stat-item {}
+    .stat-n {
+      font-family: var(--fd);
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+    }
+    .stat-l {
+      font-size: .72rem;
+      color: var(--text3);
+      margin-top: .2rem;
+      font-family: var(--fm);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    /* education timeline */
+    .edu-label {
+      font-family: var(--fm);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--text3);
+      margin-bottom: 1.25rem;
+      margin-top: 2rem;
+    }
+    .timeline { }
+    .tl-item {
+      display: flex;
+      gap: 1.25rem;
+      padding-bottom: 1.75rem;
+      position: relative;
+    }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 20px;
+      bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+    .tl-dot {
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 2px;
+      position: relative;
+      z-index: 1;
+    }
+    .tl-dot.filled { background: var(--accent); }
+    .tl-dot.open { background: var(--bg); border: 2px solid var(--border); }
+    .tl-body {}
+    .tl-deg {
+      font-family: var(--fd);
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .tl-school { font-size: .82rem; color: var(--text2); }
+    .tl-year { font-family: var(--fm); font-size: .72rem; color: var(--text3); margin-top: .15rem; }
+
+    /* interests */
+    .interests-wrap {
+      margin-top: 4rem;
+    }
+    .interests-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .65rem;
+    }
+    .interest {
+      padding: .45rem 1.1rem;
+      border-radius: 100px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text2);
+      font-size: .82rem;
+      transition: all .2s;
+      cursor: default;
+    }
+    .interest:hover {
+      background: var(--accent-lo);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ─── PUBLICATIONS ───────────────────────────────────── */
+    .pub-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-bottom: 2rem;
+    }
+    .flt {
+      padding: .38rem .95rem;
+      border-radius: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text2);
+      font-family: var(--fb);
+      font-size: .78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .flt:hover { border-color: var(--accent); color: var(--accent); }
+    .flt.on {
+      background: var(--accent-lo);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .pub-list { display: flex; flex-direction: column; gap: 1rem; }
+
+    .pub-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 1.4rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .25s, transform .25s;
+    }
+    .pub-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform .3s;
+    }
+    .pub-card.journal::before  { background: var(--amber); }
+    .pub-card.conference::before { background: var(--accent); }
+    .pub-card.poster::before   { background: var(--violet); }
+
+    .pub-card:hover { border-color: rgba(59,130,246,.3); transform: translateX(5px); }
+    .pub-card:hover::before { transform: scaleY(1); }
+
+    .pub-top {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      margin-bottom: .5rem;
+    }
+    .badge {
+      padding: .18rem .65rem;
+      border-radius: 4px;
+      font-family: var(--fm);
+      font-size: .65rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .badge.journal    { background: var(--amber-lo);  color: var(--amber); }
+    .badge.conference { background: var(--accent-lo); color: #60a5fa; }
+    .badge.poster     { background: var(--violet-lo); color: var(--violet); }
+
+    .pub-year {
+      font-family: var(--fm);
+      font-size: .72rem;
+      color: var(--text3);
+    }
+    .pub-title {
+      font-family: var(--fd);
+      font-size: .975rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+      margin-bottom: .25rem;
+    }
+    .pub-authors {
+      font-size: .82rem;
+      color: var(--text2);
+      margin-bottom: .2rem;
+    }
+    .pub-authors strong { color: var(--text); }
+    .pub-venue {
+      font-size: .8rem;
+      color: var(--text3);
+      font-style: italic;
+      margin-bottom: .75rem;
+    }
+    .pub-actions { display: flex; gap: .45rem; }
+    .pub-link {
+      padding: .22rem .7rem;
+      border-radius: 5px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text2);
+      font-size: .73rem;
+      font-weight: 500;
+      transition: all .2s;
+    }
+    .pub-link:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ─── PROJECTS ───────────────────────────────────────── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .proj-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 1.65rem;
+      transition: all .3s;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+    .proj-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0% 0%, rgba(59,130,246,.06), transparent 65%);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .proj-card:hover {
+      border-color: rgba(59,130,246,.35);
+      transform: translateY(-5px);
+      box-shadow: 0 14px 40px rgba(0,0,0,.5);
+    }
+    .proj-card:hover::after { opacity: 1; }
+
+    .proj-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: var(--accent-lo);
+      border: 1px solid rgba(59,130,246,.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      margin-bottom: 1.15rem;
+      position: relative;
+      z-index: 1;
+    }
+    .proj-title {
+      font-family: var(--fd);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: .4rem;
+      position: relative;
+      z-index: 1;
+    }
+    .proj-desc {
+      font-size: .845rem;
+      color: var(--text2);
+      line-height: 1.7;
+      margin-bottom: 1.15rem;
+      position: relative;
+      z-index: 1;
+    }
+    .tag-row { display: flex; flex-wrap: wrap; gap: .35rem; position: relative; z-index: 1; }
+    .tag {
+      padding: .22rem .6rem;
+      border-radius: 4px;
+      background: rgba(59,130,246,.08);
+      border: 1px solid rgba(59,130,246,.18);
+      color: #60a5fa;
+      font-family: var(--fm);
+      font-size: .68rem;
+    }
+
+    /* ─── CONTACT ────────────────────────────────────────── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .contact-desc {
+      font-size: .94rem;
+      color: var(--text2);
+      line-height: 1.85;
+      margin-bottom: 2rem;
+    }
+    .contact-items { display: flex; flex-direction: column; gap: .85rem; }
+
+    .c-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: .9rem 1.1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      transition: all .2s;
+      color: var(--text);
+    }
+    .c-item:hover {
+      border-color: var(--accent);
+      transform: translateX(5px);
+    }
+    .c-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--accent-lo);
+      border: 1px solid rgba(59,130,246,.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .95rem;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .c-lbl { display: flex; flex-direction: column; }
+    .c-type {
+      font-family: var(--fm);
+      font-size: .65rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text3);
+    }
+    .c-val {
+      font-size: .875rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* mailto card */
+    .mailto-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 2rem;
+    }
+    .mailto-card h3 {
+      font-family: var(--fd);
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: .5rem;
+    }
+    .mailto-card p {
+      font-size: .85rem;
+      color: var(--text3);
+      margin-bottom: 1.5rem;
+    }
+    .mailto-fields { display: flex; flex-direction: column; gap: .75rem; margin-bottom: 1rem; }
+    .f-input {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .72rem 1rem;
+      color: var(--text);
+      font-family: var(--fb);
+      font-size: .875rem;
+      width: 100%;
+      transition: border-color .2s;
+      resize: vertical;
+    }
+    .f-input::placeholder { color: var(--text3); }
+    .f-input:focus { outline: none; border-color: var(--accent); }
+
+    .send-hint {
+      font-size: .75rem;
+      color: var(--text3);
+      margin-top: .75rem;
+      text-align: center;
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    #footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.75rem;
+      text-align: center;
+    }
+    #footer p {
+      font-size: .78rem;
+      color: var(--text3);
+    }
+    #footer a { color: var(--accent); }
+
+    /* ─── SCROLL REVEAL ──────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-up.in {
+      opacity: 1;
+      transform: none;
+    }
+    .fade-up.d1 { transition-delay: .1s; }
+    .fade-up.d2 { transition-delay: .2s; }
+    .fade-up.d3 { transition-delay: .3s; }
+    .fade-up.d4 { transition-delay: .4s; }
+
+    /* ─── MOBILE NAV DRAWER ──────────────────────────────── */
+    @media (max-width: 720px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        position: fixed;
+        top: 60px;
+        left: 0; right: 0;
+        background: var(--bg2);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        padding: 1.25rem 2rem;
+        gap: 1rem;
+        transform: translateY(-120%);
+        opacity: 0;
+        transition: transform .3s, opacity .3s;
+        pointer-events: none;
       }
-
-      .profile-img {
-        border-radius: 10px;
+      .nav-links.open {
+        transform: none;
+        opacity: 1;
+        pointer-events: auto;
       }
+    }
 
-      .section-title {
-        margin-top: 50px;
-        margin-bottom: 15px;
-      }
+    /* ─── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .about-grid .profile-wrap { display: flex; justify-content: center; }
+      .profile-photo, .profile-placeholder { max-width: 220px; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .hero-name { letter-spacing: -.03em; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .stats-bar { gap: 1.25rem; }
+    }
 
-      .card {
-        margin-bottom: 20px;
-      }
+    /* ─── REDUCED MOTION ─────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .wbar { animation: none; transform: scaleY(.5); }
+      .fade-up { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
 
-      .footer {
-        margin-top: 60px;
-        padding: 25px;
-        text-align: center;
-        background: #f8f9fa;
-      }
+<!-- ═══ NAVBAR ═══════════════════════════════════════════════════════════ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="brand">Natt<em>.</em>Korat</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about"        data-sec="about">About</a></li>
+      <li><a href="#publications" data-sec="publications">Publications</a></li>
+      <li><a href="#projects"     data-sec="projects">Projects</a></li>
+      <li><a href="#contact"      data-sec="contact">Contact</a></li>
+      <li><a href="./files/natt_korat_cv.pdf" target="_blank" class="nav-cv">CV ↓</a></li>
+    </ul>
+    <button class="hamburger" id="ham" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
 
-      .hero {
-        margin-top: 40px;
-      }
-    </style>
-  </head>
 
-  <body>
-    <!-- Navbar -->
+<!-- ═══ HERO ══════════════════════════════════════════════════════════════ -->
+<section id="hero">
+  <div id="waveform-bg" aria-hidden="true">
+    <div class="wave-bars" id="waveBars"></div>
+  </div>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">Natt Korat</a>
-
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="./biography.html">Biography</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="./publication.html">Publications</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="./contact.html">Contact</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <div class="container hero">
-      <div class="row">
-        <div class="col-md-3">
-          <img
-            src="./images/photo_2025-06-30 09.33.26.jpeg"
-            class="img-fluid profile-img" />
-        </div>
-
-        <div class="col-md-9">
-          <h2>Natt KORAT</h2>
-
-          <p>
-            <strong>Lecturer-Researcher</strong><br />
-            Speech Technology Unit<br />
-            Cambodia Academy of Digital Technology (CADT)
-          </p>
-
-          <p>Speech Technology • NLP • Low-Resource Languages • Khmer AI</p>
-
-          <p>
-            I am a Lecturer-Researcher at the Cambodia Academy of Digital
-            Technology (CADT) working on speech and language technologies for
-            low-resource languages. My research focuses on developing AI systems
-            for
-            <strong
-              >Khmer speech recognition, speech data processing, and
-              multilingual natural language processing</strong
-            >.
-          </p>
-
-          <p>
-            I completed my <strong>M.S. in Computer Science</strong> in January
-            2026. Previously I earned a B.S. in Computer Science from AGA
-            Institute (2023) and a B.A. in Psychology from the Royal University
-            of Phnom Penh (2022).
-          </p>
-
-          <p>
-            My previous work also includes
-            <strong
-              >multilingual event extraction and epidemic surveillance
-              systems</strong
-            >
-            that analyze news and social media to extract structured information
-            for public health monitoring.
-          </p>
-
-          <p>
-            <a href="https://github.com/nattkorat">GitHub</a> |
-            <a
-              href="https://scholar.google.com/citations?hl=en&user=bTgY-KEAAAAJ"
-              >Google Scholar</a
-            >
-            |
-            <a href="./biography.html">CV</a>
-          </p>
-        </div>
-      </div>
-
-      <!-- Research Interests -->
-
-      <h4 class="section-title">Research Interests</h4>
-      <hr />
-
-      <ul>
-        <li>Speech Recognition</li>
-
-        <li>Speech Data Collection and Processing</li>
-
-        <li>Natural Language Processing (NLP)</li>
-
-        <li>Low-Resource Language Technologies</li>
-
-        <li>Information Extraction and Event Extraction</li>
-
-        <li>AI for Public Health and Epidemic Surveillance</li>
-      </ul>
-
-      <!-- Featured Projects -->
-
-      <h4 class="section-title">Featured Projects</h4>
-      <hr />
-
-      <div class="row">
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Khmer Speech Technology</h5>
-
-              <p class="card-text">
-                Research on Khmer speech recognition systems, speech datasets,
-                and tools for low-resource speech processing.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Speech Dataset Pipeline</h5>
-
-              <p class="card-text">
-                Pipeline for collecting and processing speech data from online
-                sources such as broadcast media and YouTube.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Event Extraction System</h5>
-
-              <p class="card-text">
-                AI system that extracts epidemic-related events from
-                multilingual news and social media using transformer models.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Education -->
-
-      <h4 class="section-title">Education</h4>
-      <hr />
-
-      <ul>
-        <li>
-          <strong>M.S. Computer Science</strong><br />
-          Completed January 2026
-        </li>
-
-        <li>
-          <strong>B.S. Computer Science</strong><br />
-          AGA Institute, 2023
-        </li>
-
-        <li>
-          <strong>B.A. Psychology</strong><br />
-          Royal University of Phnom Penh, 2022
-        </li>
-      </ul>
-
-      <!-- Footer -->
-
-      <div class="footer">© 2026 Natt Korat</div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Speech Technology · NLP · Low-Resource Languages</p>
+    <h1 class="hero-name">Natt Korat</h1>
+    <p class="hero-role">
+      <span id="typed-text"></span><span class="cursor"></span>
+    </p>
+    <p class="hero-desc">
+      Lecturer-Researcher at <strong>CADT</strong> developing AI systems for Khmer
+      speech recognition, multilingual NLP, and low-resource language technologies.
+      <!-- PhD applicant at <strong>Université Paris-Saclay</strong> (LISN). -->
+    </p>
+    <div class="hero-cta">
+      <a href="#publications" class="btn btn-primary">View Publications</a>
+      <a href="#contact"      class="btn btn-outline">Get in Touch</a>
     </div>
-  </body>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ═══ ABOUT ═════════════════════════════════════════════════════════════ -->
+<div class="section" id="about">
+  <div class="section-inner">
+    <p class="s-eyebrow">Background</p>
+    <h2 class="s-title">About Me</h2>
+
+    <div class="about-grid">
+      <!-- Photo -->
+      <div class="profile-wrap fade-up">
+        <img
+          src="./images/photo_2025-06-30 09.33.26.jpeg"
+          alt="Natt Korat"
+          class="profile-photo"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div class="profile-placeholder" style="display:none;">🎓</div>
+      </div>
+
+      <!-- Text -->
+      <div class="fade-up d1">
+        <div class="about-name">Natt Korat</div>
+        <div class="about-pos">Lecturer-Researcher · Speech Technology Unit · CADT, Cambodia</div>
+
+        <p class="about-bio">
+          I am a Lecturer-Researcher at the Cambodia Academy of Digital Technology (CADT),
+          where I work on speech and language technologies for low-resource languages. My
+          research centres on <strong>Khmer automatic speech recognition</strong>, speech
+          data processing, and multilingual natural language processing.
+        </p>
+        <p class="about-bio">
+          I am currently a PhD applicant at <strong>Université Paris-Saclay (LISN)</strong>,
+          with research focused on <strong>Parameter-Efficient Fine-Tuning</strong> of
+          self-supervised speech models under genuinely low-resource conditions.
+          My prior work also spans <strong>multilingual event extraction</strong> and
+          epidemic surveillance systems for public health intelligence.
+        </p>
+
+        <div class="pill-row">
+          <a href="https://github.com/nattkorat" class="pill" target="_blank">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 005.47 7.59c.4.07.55-.17.55-.38l-.01-1.49c-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 018 5.73c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48l-.01 2.2c0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+          <a href="https://scholar.google.com/citations?hl=en&user=bTgY-KEAAAAJ" class="pill" target="_blank">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 110-14 7 7 0 010 14zm0-24L0 9.5l4.838 3.94A8 8 0 0112 10a8 8 0 017.162 3.44L24 9.5z"/></svg>
+            Google Scholar
+          </a>
+          <a href="./files/natt_korat_cv.pdf" class="pill" target="_blank">📄 Curriculum Vitae</a>
+        </div>
+
+        <!-- Education -->
+        <div class="edu-label">Education</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot filled"></div>
+            <div class="tl-body">
+              <div class="tl-deg">M.S. in Computer Science</div>
+              <div class="tl-school">Completed January 2026</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot open"></div>
+            <div class="tl-body">
+              <div class="tl-deg">B.S. in Computer Science</div>
+              <div class="tl-school">AGA Institute</div>
+              <div class="tl-year">2023</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot open"></div>
+            <div class="tl-body">
+              <div class="tl-deg">B.A. in Psychology</div>
+              <div class="tl-school">Royal University of Phnom Penh</div>
+              <div class="tl-year">2022</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stats-bar">
+          <div class="stat-item">
+            <div class="stat-n">5</div>
+            <div class="stat-l">Publications</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-n">4</div>
+            <div class="stat-l">Projects</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-n">3</div>
+            <div class="stat-l">Degrees</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-n">🇰🇭</div>
+            <div class="stat-l">Focus Language</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Research Interests -->
+    <div class="interests-wrap fade-up">
+      <div class="edu-label" style="margin-top:0;">Research Interests</div>
+      <div class="interests-grid">
+        <span class="interest">🎙️ Speech Recognition (ASR)</span>
+        <span class="interest">🔬 Self-Supervised Learning</span>
+        <span class="interest">⚡ Parameter-Efficient Fine-Tuning</span>
+        <span class="interest">🌏 Low-Resource Languages</span>
+        <span class="interest">🇰🇭 Khmer NLP</span>
+        <span class="interest">📰 Information Extraction</span>
+        <span class="interest">🏥 AI for Public Health</span>
+        <span class="interest">🔉 Speech Data Processing</span>
+        <span class="interest">🤗 Transformer Models</span>
+        <span class="interest">🌐 Multilingual NLP</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+
+<!-- ═══ PUBLICATIONS ══════════════════════════════════════════════════════ -->
+<div class="section" id="publications">
+  <div class="section-inner">
+    <p class="s-eyebrow">Research Output</p>
+    <h2 class="s-title">Publications</h2>
+
+    <div class="pub-filters">
+      <button class="flt on" data-f="all">All &nbsp;<span style="opacity:.5">5</span></button>
+      <button class="flt" data-f="journal">Journal &nbsp;<span style="opacity:.5">1</span></button>
+      <button class="flt" data-f="conference">Conference &nbsp;<span style="opacity:.5">2</span></button>
+      <button class="flt" data-f="poster">Poster / Workshop &nbsp;<span style="opacity:.5">2</span></button>
+    </div>
+
+    <div class="pub-list">
+
+      <div class="pub-card journal fade-up" data-type="journal">
+        <div class="pub-top">
+          <span class="badge journal">Journal</span>
+          <span class="pub-year">2025</span>
+        </div>
+        <div class="pub-title">Khmer News Classification in Low-Resource Settings: A Comparative Analysis of Embedding Methods</div>
+        <div class="pub-authors"><strong>Korat, N.</strong>, Heang, S., &amp; Lay, V.</div>
+        <div class="pub-venue">Journal on Information Technologies &amp; Communications</div>
+        <div class="pub-actions">
+          <a href="https://doi.org/10.32913/mic-ict-research-vn.v2025.n1.1377" target="_blank" class="pub-link">DOI</a>
+        </div>
+      </div>
+
+      <div class="pub-card conference fade-up d1" data-type="conference">
+        <div class="pub-top">
+          <span class="badge conference">Conference</span>
+          <span class="pub-year">2025</span>
+        </div>
+        <div class="pub-title">Epidemic Event Extraction from News Media Using Large Language Models</div>
+        <div class="pub-authors"><strong>Korat, N.</strong>, Kak, S., Lay, V., Uraiwan, B., &amp; Waranrach, V.</div>
+        <div class="pub-venue">International Conference on Digital Economy and Fintech Innovation (DEFI 2025)</div>
+        <a href="https://doi.org/10.1109/DEFI67526.2025.11551611" target="_blank" class="pub-link">DIO</a>
+      </div>
+
+      <div class="pub-card conference fade-up d2" data-type="conference">
+        <div class="pub-top">
+          <span class="badge conference">Conference</span>
+          <span class="pub-year">2025</span>
+        </div>
+        <div class="pub-title">Building a Khmer NER Benchmark from Health News Data Towards Event Extraction</div>
+        <div class="pub-authors">Chiep, C., <strong>Korat, N.</strong>, Lay, V., &amp; Ly, R.</div>
+        <div class="pub-venue">ASEAN Conference on Emerging Technology (ACET 2025)</div>
+        <a href="https://hal.science/hal-05366668/" target="_blank" rel="noopener noreferrer" class="pub-link">HAL</a>
+      </div>
+
+      <div class="pub-card poster fade-up d1" data-type="poster">
+        <div class="pub-top">
+          <span class="badge poster">Poster</span>
+          <span class="pub-year">2025</span>
+        </div>
+        <div class="pub-title">Toward Multilingual Epidemic Event Extraction for Low-Resource Languages</div>
+        <div class="pub-authors"><strong>Korat, N.</strong>, Waranrach, V., &amp; Kak, S.</div>
+        <div class="pub-venue">UEC International Seminar Poster Session</div>
+        <div class="pub-actions">
+          <a href="http://www.uarc.uec.ac.jp/2025UEC_Seminar/poster-detail.html" target="_blank" class="pub-link">Poster →</a>
+        </div>
+      </div>
+
+      <div class="pub-card poster fade-up d2" data-type="poster">
+        <div class="pub-top">
+          <span class="badge poster">Workshop</span>
+          <span class="pub-year">2024</span>
+        </div>
+        <div class="pub-title">Robust and Efficient Recognition of Khmer License Plates Using YOLOv5 and Parseq OCR</div>
+        <div class="pub-authors">Kong, P., <strong>Korat, N.</strong>, &amp; Veng, P.</div>
+        <div class="pub-venue">CV4DC Workshop, Asian Conference on Computer Vision (ACCV 2024)</div>
+        <div class="pub-actions">
+          <a href="https://cv4dc.github.io/2024/" target="_blank" class="pub-link">Workshop →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+
+<!-- ═══ PROJECTS ══════════════════════════════════════════════════════════ -->
+<div class="section" id="projects">
+  <div class="section-inner">
+    <p class="s-eyebrow">Work in Progress</p>
+    <h2 class="s-title">Featured Projects</h2>
+
+    <div class="projects-grid">
+
+      <div class="proj-card fade-up">
+        <div class="proj-icon">🎙️</div>
+        <div class="proj-title">Khmer Speech Technology</div>
+        <div class="proj-desc">
+          End-to-end Khmer ASR systems built on XLS-R 300M with CTC decoding,
+          speaker diarization (pyannote), and INT8 quantization via ONNX Runtime
+          for low-latency clinical transcription.
+        </div>
+        <div class="tag-row">
+          <span class="tag">Wav2Vec2 / XLS-R</span>
+          <span class="tag">CTC</span>
+          <span class="tag">Diarization</span>
+          <span class="tag">ONNX</span>
+        </div>
+      </div>
+
+      <!-- <div class="proj-card fade-up d1">
+        <div class="proj-icon">🔬</div>
+        <div class="proj-title">speechpeft</div>
+        <div class="proj-desc">
+          PhD research framework for Parameter-Efficient Fine-Tuning of speech
+          foundation models — Wav2Vec2, HuBERT, WavLM, Whisper — with LoRA,
+          MultiConvAdapter, multi-GPU DDP, and 107+ unit tests.
+        </div>
+        <div class="tag-row">
+          <span class="tag">PEFT</span>
+          <span class="tag">LoRA</span>
+          <span class="tag">HuBERT</span>
+          <span class="tag">WavLM</span>
+          <span class="tag">DDP</span>
+        </div>
+      </div> -->
+
+      <div class="proj-card fade-up d2">
+        <div class="proj-icon">🔊</div>
+        <div class="proj-title">Speech Dataset Pipeline</div>
+        <div class="proj-desc">
+          Automated pipeline for collecting and processing Khmer speech data from
+          broadcast media and YouTube, with text normalization, forced alignment,
+          and PyCTCDecode + KenLM beam-search decoding.
+        </div>
+        <div class="tag-row">
+          <span class="tag">Data Collection</span>
+          <span class="tag">KenLM</span>
+          <span class="tag">Forced Alignment</span>
+        </div>
+      </div>
+
+      <div class="proj-card fade-up d3">
+        <div class="proj-icon">🦠</div>
+        <div class="proj-title">Event Extraction System</div>
+        <div class="proj-desc">
+          AI pipeline that extracts epidemic-related events from multilingual news
+          and social media via transformer models and LLMs, generating structured
+          public health intelligence from unstructured text.
+        </div>
+        <div class="tag-row">
+          <span class="tag">NER</span>
+          <span class="tag">LLM</span>
+          <span class="tag">Multilingual</span>
+          <span class="tag">Event Extraction</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+
+<!-- ═══ CONTACT ═══════════════════════════════════════════════════════════ -->
+<div class="section" id="contact">
+  <div class="section-inner">
+    <p class="s-eyebrow">Get in Touch</p>
+    <h2 class="s-title">Contact</h2>
+
+    <div class="contact-grid">
+      <div class="fade-up">
+        <p class="contact-desc">
+          I'm open to research collaborations, academic discussions on speech
+          technology and low-resource NLP. Feel
+          free to reach out through any of the channels below.
+        </p>
+        <div class="contact-items">
+          <a href="https://github.com/nattkorat" class="c-item" target="_blank">
+            <div class="c-icon">
+              <svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 005.47 7.59c.4.07.55-.17.55-.38l-.01-1.49c-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 018 5.73c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48l-.01 2.2c0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            </div>
+            <div class="c-lbl">
+              <span class="c-type">GitHub</span>
+              <span class="c-val">@nattkorat</span>
+            </div>
+          </a>
+          <a href="https://scholar.google.com/citations?hl=en&user=bTgY-KEAAAAJ" class="c-item" target="_blank">
+            <div class="c-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 110-14 7 7 0 010 14zm0-24L0 9.5l4.838 3.94A8 8 0 0112 10a8 8 0 017.162 3.44L24 9.5z"/></svg>
+            </div>
+            <div class="c-lbl">
+              <span class="c-type">Google Scholar</span>
+              <span class="c-val">Natt Korat</span>
+            </div>
+          </a>
+          <a href="./files/natt_korat_cv.pdf" class="c-item" target="_blank">
+            <div class="c-icon">📄</div>
+            <div class="c-lbl">
+              <span class="c-type">Curriculum Vitae</span>
+              <span class="c-val">Download PDF</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="mailto-card fade-up d1">
+        <h3>Send a Message</h3>
+        <p>Fill in below and your default email client will open with a pre-filled draft.</p>
+        <div class="mailto-fields">
+          <input type="text"  id="m-name"    placeholder="Your name"       class="f-input" />
+          <input type="text"  id="m-subject" placeholder="Subject"         class="f-input" />
+          <textarea           id="m-body"    placeholder="Your message…"   class="f-input" rows="5"></textarea>
+        </div>
+        <button class="btn btn-primary" id="sendBtn" style="width:100%;justify-content:center;">
+          Open in Email Client
+        </button>
+        <p class="send-hint">Opens your local mail app (Gmail, Outlook, etc.)</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════════════════ -->
+<footer id="footer">
+  <p>© 2026 Natt Korat &nbsp;·&nbsp;</p>
+</footer>
+
+
+<!-- ═══ SCRIPTS ══════════════════════════════════════════════════════════ -->
+<script>
+/* ── Generate speech waveform bars ─────────────────────────────────────── */
+(function () {
+  const container = document.getElementById('waveBars');
+  const N = 64;
+  for (let i = 0; i < N; i++) {
+    const b = document.createElement('div');
+    b.className = 'wbar';
+    const h = 20 + Math.random() * 360;
+    b.style.height = h + 'px';
+    b.style.animationDuration = (0.6 + Math.random() * 1.8) + 's';
+    b.style.animationDelay   = (-Math.random() * 2) + 's';
+    // subtle tint variation
+    if (i % 5 === 0) b.style.background = 'var(--amber)';
+    container.appendChild(b);
+  }
+})();
+
+/* ── Typing effect ─────────────────────────────────────────────────────── */
+(function () {
+  const phrases = [
+    'Lecturer-Researcher at CADT',
+    'Khmer ASR Researcher',
+    'Speech Technology Specialist',
+    'Building AI for Low-Resource Languages',
+  ];
+  let pi = 0, ci = 0, del = false;
+  const el = document.getElementById('typed-text');
+
+  function tick() {
+    const p = phrases[pi];
+    if (!del) {
+      el.textContent = p.slice(0, ++ci);
+      if (ci === p.length) { setTimeout(() => { del = true; tick(); }, 2400); return; }
+    } else {
+      el.textContent = p.slice(0, --ci);
+      if (ci === 0) { del = false; pi = (pi + 1) % phrases.length; }
+    }
+    setTimeout(tick, del ? 35 : 75);
+  }
+  tick();
+})();
+
+/* ── Navbar: scrolled state + active section highlight ─────────────────── */
+(function () {
+  const nav = document.getElementById('nav');
+  const links = document.querySelectorAll('.nav-links a[data-sec]');
+
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(a => a.classList.toggle('active', a.dataset.sec === e.target.id));
+      }
+    });
+  }, { threshold: 0.35 });
+
+  document.querySelectorAll('section[id], div[id]').forEach(s => obs.observe(s));
+})();
+
+/* ── Mobile nav toggle ─────────────────────────────────────────────────── */
+(function () {
+  const ham  = document.getElementById('ham');
+  const menu = document.getElementById('navLinks');
+  ham.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    ham.classList.toggle('open', open);
+    ham.setAttribute('aria-expanded', open);
+  });
+  menu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => { menu.classList.remove('open'); ham.classList.remove('open'); });
+  });
+})();
+
+/* ── Scroll reveal ─────────────────────────────────────────────────────── */
+(function () {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+})();
+
+/* ── Publication filter ────────────────────────────────────────────────── */
+(function () {
+  document.querySelectorAll('.flt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.flt').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      const f = btn.dataset.f;
+      document.querySelectorAll('.pub-card').forEach(card => {
+        const show = f === 'all' || card.dataset.type === f;
+        card.style.transition = 'opacity .25s, transform .25s';
+        if (show) {
+          card.style.display = '';
+          requestAnimationFrame(() => { card.style.opacity = '1'; card.style.transform = ''; });
+        } else {
+          card.style.opacity = '0';
+          setTimeout(() => { card.style.display = 'none'; }, 250);
+        }
+      });
+    });
+  });
+})();
+
+/* ── Contact mailto ────────────────────────────────────────────────────── */
+document.getElementById('sendBtn').addEventListener('click', () => {
+  const name    = document.getElementById('m-name').value.trim();
+  const subject = document.getElementById('m-subject').value.trim() || 'Hello from your portfolio';
+  const body    = document.getElementById('m-body').value.trim();
+  const from    = name ? `From: ${name}\n\n` : '';
+  const mailto  = `mailto:natt.korat@cadt.edu.kh?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(from + body)}`;
+  window.location.href = mailto;
+});
+</script>
+
+</body>
 </html>
