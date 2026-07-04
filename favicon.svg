@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Natt Korat">
+  <rect width="64" height="64" rx="14" fill="#07111f"/>
+  <path d="M14 44V20h7l15 24h-7L14 20v24z" fill="#e2e8f0"/>
+  <path d="M40 44V20h7v10l8-10h8L52 33l12 11h-9l-8-8v8z" fill="#3b82f6"/>
+</svg>
